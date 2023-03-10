@@ -1,9 +1,10 @@
 import './App.css';
+import { DrawingBoard } from './components/drawing-board';
 
 function App() {
   return (
     <div className="app-background">
-      <div className="drawing-board" />
+      <DrawingBoard />
     </div>
   );
 }
