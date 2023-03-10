@@ -2,7 +2,9 @@ import Paper from 'paper';
 import { useEffect, useRef } from 'react';
 import draw1 from './draw1.js';
 
-export const Canvas = (props) => {
+import './canvas.css';
+
+export const Canvas = () => {
   const canvasRef = useRef(null);
 
   useEffect(() => {
@@ -11,5 +13,5 @@ export const Canvas = (props) => {
     draw1();
   }, []);
 
-  return <canvas ref={canvasRef} {...props} id="canvas" resize="true" />;
+  return <canvas ref={canvasRef} id="canvas" resize="true" />;
 };
