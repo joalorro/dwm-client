@@ -1,10 +1,10 @@
 import './App.css';
-import { DrawingBoard } from './components/drawing-board';
+import { Canvas } from './components/canvas';
 
 function App() {
   return (
     <div className="app-background">
-      <DrawingBoard />
+      <Canvas />
     </div>
   );
 }
