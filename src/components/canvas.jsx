@@ -1,6 +1,7 @@
 import Paper from 'paper';
 import { useEffect, useRef } from 'react';
 import DrawingConfig from './drawingConfig.js';
+import { Header } from './header/header.tsx';
 
 import './canvas.css';
 
@@ -13,5 +14,10 @@ export const Canvas = () => {
     DrawingConfig.enableDrawing();
   }, []);
 
-  return <canvas ref={canvasRef} id="canvas" resize="true" />;
+  return (
+    <>
+      <Header />
+      <canvas ref={canvasRef} id="canvas" resize="true" />
+    </>
+  );
 };

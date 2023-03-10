@@ -1,12 +1,18 @@
 import './Root.css';
-import { Canvas } from '../../components/canvas';
+import { Button } from '@mui/material';
+import { Link } from 'react-router-dom';
 
-function Root() {
+export function Root() {
   return (
-    <div className="app-background">
-      <Canvas />
-    </div>
+    <>
+      <section>
+        <h3>Welcome to Draw With Me!</h3>
+      </section>
+      <section>
+        <Link to="/rooms/1">
+          <Button>Click here to join a room</Button>
+        </Link>
+      </section>
+    </>
   );
 }
-
-export default Root;
