@@ -12,6 +12,10 @@ const draw1 = () => {
     myPath.add(event.point);
   };
 
+  Paper.view.onMouseUp = (event) => {
+    myPath = new Paper.Path();
+  };
+
   Paper.view.draw();
 };
 
