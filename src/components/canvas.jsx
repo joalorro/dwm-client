@@ -1,6 +1,6 @@
 import Paper from 'paper';
 import { useEffect, useRef } from 'react';
-import draw1 from './draw1.js';
+import DrawingConfig from './drawingConfig.js';
 
 import './canvas.css';
 
@@ -10,7 +10,7 @@ export const Canvas = () => {
   useEffect(() => {
     const canvas = canvasRef.current;
     Paper.setup(canvas);
-    draw1();
+    DrawingConfig.enableDrawing();
   }, []);
 
   return <canvas ref={canvasRef} id="canvas" resize="true" />;

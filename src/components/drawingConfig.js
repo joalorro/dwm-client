@@ -1,6 +1,6 @@
 import Paper from 'paper';
 
-const draw1 = () => {
+const enableDrawing = () => {
   let myPath = new Paper.Path();
 
   Paper.view.onMouseDown = (event) => {
@@ -19,4 +19,6 @@ const draw1 = () => {
   Paper.view.draw();
 };
 
-export default draw1;
+const DrawingConfig = { enableDrawing };
+
+export default DrawingConfig;
