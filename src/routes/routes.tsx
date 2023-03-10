@@ -1,4 +1,4 @@
-import { Canvas } from '../components/canvas';
+import { Room } from './rooms/room';
 import { Root } from './root/root';
 
 export const routes = [
@@ -8,6 +8,6 @@ export const routes = [
   },
   {
     path: '/rooms/:roomId',
-    element: <Canvas />,
+    element: <Room />,
   },
 ];
