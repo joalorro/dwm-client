@@ -1,0 +1,29 @@
+import Paper from 'paper';
+import * as paper from 'paper';
+
+const enableDrawing = () => {
+  let myPath = new Paper.Path();
+
+  const colorBlack = new paper.Color(0, 0, 0);
+
+  Paper.view.onMouseDown = () => {
+    myPath.strokeColor = colorBlack;
+    myPath.strokeWidth = 3;
+  };
+
+  Paper.view.onMouseDrag = (event: paper.MouseEvent) => {
+    myPath.add(event.point);
+  };
+
+  Paper.view.onMouseUp = (event: paper.MouseEvent) => {
+    myPath = new Paper.Path();
+  };
+
+  // if (!Paper.view.draw) {
+  (Paper.view as any).draw();
+  // }
+};
+
+const DrawingConfig = { enableDrawing };
+
+export default DrawingConfig;

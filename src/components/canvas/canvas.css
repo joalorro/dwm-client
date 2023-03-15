@@ -1,8 +1,9 @@
 #canvas {
-  background-color: #fff;
   min-height: 600px;
   height: 60vmin;
   width: 60%;
+  /* overflow: scroll; */
+  background-color: #fff;
   border-radius: 1em;
   box-shadow: 1em 1em 10px #000;
 }

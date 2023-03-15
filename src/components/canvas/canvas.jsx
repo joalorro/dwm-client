@@ -1,6 +1,6 @@
 import Paper from 'paper';
 import { useEffect, useRef } from 'react';
-import DrawingConfig from './drawingConfig.js';
+import DrawingConfig from './drawingConfig.ts';
 
 import './canvas.css';
 
