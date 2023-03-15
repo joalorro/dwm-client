@@ -1,6 +1,9 @@
+#room {
+  width: 100vw;
+}
+
 #room-content {
-  min-width: 1200px;
-  /* overflow: scroll; */
+  min-width: 800px;
   display: grid;
   grid-template-columns: 3fr 1fr;
   padding: 2rem;

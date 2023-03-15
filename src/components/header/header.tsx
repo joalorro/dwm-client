@@ -1,10 +1,10 @@
 import { Button } from '@mui/material';
 import { Link } from 'react-router-dom';
-import './header.css';
+import styles from './header.module.css';
 
 export const Header = () => {
   return (
-    <header id="app-header">
+    <header id={styles['app-header']}>
       <Link to="/">
         <Button variant="contained">Return to homepage</Button>
       </Link>

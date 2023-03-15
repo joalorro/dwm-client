@@ -6,7 +6,7 @@ import { useChatRoom } from '../../hooks/useChatRoom';
 import { Canvas } from '../canvas/canvas';
 import { ChatRoom } from './chat-room';
 
-import './room.css';
+import styles from './room.module.css';
 
 export function Room() {
   const [isConnected, setIsConnected] = useState<Boolean | null>(null);
@@ -18,8 +18,8 @@ export function Room() {
 
   let content;
 
-  const chatRoomAndCanvas = (
-    <div id="room-content">
+  const roomContent = (
+    <div id={styles['room-content']}>
       <Canvas />
       <ChatRoom />
     </div>
@@ -27,19 +27,18 @@ export function Room() {
 
   switch (isConnected) {
     case false:
-      content = <>not connected</>;
+      content = <div className="center-page-align">not connected</div>;
       break;
     case true:
-      content = <Canvas />;
-      // content = chatRoomAndCanvas;
+      content = roomContent;
       break;
     default:
       content = <></>;
   }
   return (
-    <>
+    <div id={styles.room}>
       <Header />
       {content}
-    </>
+    </div>
   );
 }
