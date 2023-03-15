@@ -3,7 +3,7 @@ import { useEffect } from 'react';
 import { API_URL } from '../constants/api';
 
 export function useConnectRoom<T>(
-  setIsConnected: React.Dispatch<React.SetStateAction<Boolean | null>>,
+  setIsConnected: React.Dispatch<React.SetStateAction<boolean | null>>,
 ): void {
   useEffect(() => {
     const connectToApi = async () => {

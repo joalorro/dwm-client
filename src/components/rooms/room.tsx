@@ -3,38 +3,35 @@ import { useState } from 'react';
 import { Header } from '../header/header';
 import { useConnectRoom } from '../../hooks/useConnectRoom';
 import { useChatRoom } from '../../hooks/useChatRoom';
-import { Canvas } from '../canvas/canvas';
-import { ChatRoom } from './chat-room';
+import { RoomContent } from './room-content';
 
 import styles from './room.module.css';
 
-export function Room() {
-  const [isConnected, setIsConnected] = useState<Boolean | null>(null);
-
-  useConnectRoom(setIsConnected);
-  useChatRoom(null);
-
-  const handleNewMessage = () => {};
-
-  let content;
-
-  const roomContent = (
-    <div id={styles['room-content']}>
-      <Canvas />
-      <ChatRoom />
-    </div>
-  );
+function getContent(isConnected: boolean | null) {
+  let content: JSX.Element;
 
   switch (isConnected) {
     case false:
       content = <div className="center-page-align">not connected</div>;
       break;
     case true:
-      content = roomContent;
+      content = <RoomContent />;
       break;
     default:
       content = <></>;
   }
+
+  return content;
+}
+
+export function Room() {
+  const [isConnected, setIsConnected] = useState<boolean | null>(null);
+
+  useConnectRoom(setIsConnected);
+  useChatRoom(null);
+
+  const handleNewMessage = () => {};
+  const content = getContent(isConnected);
   return (
     <div id={styles.room}>
       <Header />
