@@ -2,7 +2,7 @@ import axios from 'axios';
 import { useEffect } from 'react';
 import { API_URL } from '../constants/api';
 
-export function useConnectRoom<T>(
+export function useConnectRoom(
   setIsConnected: React.Dispatch<React.SetStateAction<boolean | null>>,
 ): void {
   useEffect(() => {
