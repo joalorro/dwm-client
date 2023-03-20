@@ -1,25 +1,33 @@
-import { ChangeEvent, useState } from 'react';
+import { ChangeEvent, useEffect, useState } from 'react';
 import {
   AppendChatMessage,
   ChatMessageData,
-  SetupChatroomConfig,
+  SendChatMessage,
+  SetupAppendChatMessageListener,
 } from '../../constants/interfaces';
 import { Canvas } from '../canvas/canvas';
 import { ChatRoom, ChatRoomProps } from './chat-room';
 import styles from './connected-room.module.css';
 
-export const ConnectedRoom = ({ setupChatroomConfig }: ConnectedRoomProps) => {
+export const ConnectedRoom = ({
+  sendChatMessage,
+  setupAppendMessageListener,
+}: ConnectedRoomProps) => {
   const [chatInput, setChatInput] = useState<string>('');
   const [chatMessages, setChatMessages] = useState<ChatMessageData[]>([]);
 
-  const [sendChatMessage, setupAppendMessageListener] = setupChatroomConfig;
   const appendMessage: AppendChatMessage = (data: ChatMessageData) => {
-    setChatMessages(chatMessages.concat(data));
+    setChatMessages((prevMessages) => [...prevMessages, data]);
   };
 
-  setupAppendMessageListener(appendMessage);
+  useEffect(() => {
+    setupAppendMessageListener(appendMessage);
+  }, []);
 
-  const handleSend = () => sendChatMessage({ text: chatInput });
+  const handleSend = () => {
+    sendChatMessage({ text: chatInput });
+    setChatInput('');
+  };
   const handleChatInputChange = (event: ChangeEvent) =>
     setChatInput((event.target as HTMLInputElement).value);
   const chatRoomProps: ChatRoomProps = {
@@ -36,6 +44,17 @@ export const ConnectedRoom = ({ setupChatroomConfig }: ConnectedRoomProps) => {
   );
 };
 
+/**
+ * @typedef {ConnectedRoomProps}
+ 
+ */
+
+/**
+ * @type {ConnectedRoomProps}
+ * @property {SendChatMessage} sendChatMessage
+ * @property {SetupAppendChatMessageListener} setupAppendMessageListener
+ */
 export interface ConnectedRoomProps {
-  setupChatroomConfig: SetupChatroomConfig;
+  sendChatMessage: SendChatMessage;
+  setupAppendMessageListener: SetupAppendChatMessageListener;
 }
