@@ -2,13 +2,13 @@ import { ReactElement, useEffect } from 'react';
 import { useState } from 'react';
 import { Header } from '../header/header';
 import { useConnectRoom } from '../../hooks/useConnectRoom';
-import { SetupChatroomConfig } from '../../constants/interfaces';
+import { SetupSocketConfig } from '../../constants/interfaces';
 import { ConnectedRoom, ConnectedRoomProps } from './connected-room';
 import { Socket } from 'socket.io-client';
-import { setupChatroom } from '../../hooks/chat-web-socket/setupChatroom';
-import { useConnectWebSocket } from '../../hooks/chat-web-socket/useConnectWebSocket';
+import { useConnectWebSocket } from '../../hooks/web-socket/useConnectWebSocket';
 import { NotConnected } from './not-connected';
-import { useRenderConnectedRoom } from '../../hooks/chat-web-socket/useRenderConnectedRoom';
+import { useRenderConnectedRoom } from '../../hooks/web-socket/useRenderConnectedRoom';
+import { setupWebSocket } from '../../hooks/web-socket/setupWebSocket';
 
 import styles from './room.module.css';
 
@@ -19,11 +19,12 @@ export function Room() {
   const [isConnected, setIsConnected] = useState<boolean | null>(null);
   const [roomContent, setRoomContent] = useState<ReactElement>(<>loading</>);
   const [socket, setSocket] = useState<Socket | null>(null);
-  const [chatRoomConfig, setChatRoomConfig] =
-    useState<SetupChatroomConfig | null>(null);
+  const [socketConfig, setSocketConfig] = useState<SetupSocketConfig | null>(
+    null,
+  );
 
   const renderNotConnectedPage = () => setRoomContent(<NotConnected />);
-  const connectSocket = () => setChatRoomConfig(setupChatroom());
+  const connectSocket = () => setSocketConfig(setupWebSocket());
   const renderConnectedRoom = (connectedRoomProps: ConnectedRoomProps) =>
     setRoomContent(<ConnectedRoom {...connectedRoomProps} />);
 
@@ -36,13 +37,13 @@ export function Room() {
     renderNotConnectedPage,
     socket,
   });
-  // once connected to chat room web socket, attach socket to state
+  // once connected to chat room web socket, attach socket object to state
   useEffect(() => {
-    if (chatRoomConfig) setSocket(chatRoomConfig.socket);
-  }, [chatRoomConfig]);
-  // after the socket and chatRoomConfig are attached to state,
+    if (socketConfig) setSocket(socketConfig.socket);
+  }, [socketConfig]);
+  // after the socket and socketConfig are attached to state,
   // render the connected room
-  useRenderConnectedRoom({ socket, chatRoomConfig, renderConnectedRoom });
+  useRenderConnectedRoom({ socket, socketConfig, renderConnectedRoom });
 
   return (
     <div id={styles.room}>

@@ -25,10 +25,20 @@ export interface SetupAppendChatMessageListener {
 /**
  * @param {Array.<Socket, SendChatMessage, SetupAppendChatMessageListener>}
  */
-export interface SetupChatroomConfig {
+export interface SetupSocketConfig {
   socket: Socket;
   sendChatMessage: SendChatMessage;
   setupAppendMessageListener: SetupAppendChatMessageListener;
+  sendPaintEventData: SendPaintEventData;
+}
+
+// TODO: add actual properties
+export interface PaintData {
+  [key: string]: any;
+}
+
+export interface SendPaintEventData {
+  (paintData: PaintData): void;
 }
 
 export interface SendChatMessage {
@@ -44,6 +54,6 @@ export interface ConnectWebSocketConfig {
 
 export interface RenderConnectedRoomConfig {
   socket: Socket | null;
-  chatRoomConfig: SetupChatroomConfig | null;
+  socketConfig: SetupSocketConfig | null;
   renderConnectedRoom: (connectedRoomProps: ConnectedRoomProps) => void;
 }

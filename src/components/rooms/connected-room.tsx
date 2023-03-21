@@ -2,16 +2,19 @@ import { ChangeEvent, useEffect, useState } from 'react';
 import {
   AppendChatMessage,
   ChatMessageData,
+  PaintData,
   SendChatMessage,
+  SendPaintEventData,
   SetupAppendChatMessageListener,
 } from '../../constants/interfaces';
-import { Canvas } from '../canvas/canvas';
+import { Canvas, CanvasProps } from '../canvas/canvas';
 import { ChatRoom, ChatRoomProps } from './chat-room';
 import styles from './connected-room.module.css';
 
 export const ConnectedRoom = ({
   sendChatMessage,
   setupAppendMessageListener,
+  sendPaintEventData,
 }: ConnectedRoomProps) => {
   const [chatInput, setChatInput] = useState<string>('');
   const [chatMessages, setChatMessages] = useState<ChatMessageData[]>([]);
@@ -36,9 +39,12 @@ export const ConnectedRoom = ({
     handleInputChange: handleChatInputChange,
     messages: chatMessages,
   };
+  const canvasProps: CanvasProps = {
+    sendPaintEventData,
+  };
   return (
     <div id={styles['room-content']}>
-      <Canvas />
+      <Canvas {...canvasProps} />
       <ChatRoom {...chatRoomProps} />
     </div>
   );
@@ -57,4 +63,5 @@ export const ConnectedRoom = ({
 export interface ConnectedRoomProps {
   sendChatMessage: SendChatMessage;
   setupAppendMessageListener: SetupAppendChatMessageListener;
+  sendPaintEventData: SendPaintEventData;
 }

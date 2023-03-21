@@ -3,7 +3,8 @@ import { API_URL } from '../../constants/api';
 import {
   AppendChatMessage,
   ChatMessageData,
-  SetupChatroomConfig,
+  PaintData,
+  SetupSocketConfig,
 } from '../../constants/interfaces';
 
 /**
@@ -12,7 +13,7 @@ import {
  * * a sendChatMessage function that emits a 'message' event
  * * a callback function that sets up the 'message' event listener on the client's web socket
  */
-export const setupChatroom = (): SetupChatroomConfig => {
+export const setupWebSocket = (): SetupSocketConfig => {
   const socket = io(API_URL);
   const sendChatMessage = (chatData: ChatMessageData) => {
     socket.emit('message', chatData);
@@ -22,5 +23,15 @@ export const setupChatroom = (): SetupChatroomConfig => {
       appendMessage(incomingMessage);
     });
   };
-  return { socket, sendChatMessage, setupAppendMessageListener };
+
+  const sendPaintEventData = (paintData: PaintData) => {
+    socket.emit('paint', paintData);
+  };
+
+  return {
+    socket,
+    sendChatMessage,
+    setupAppendMessageListener,
+    sendPaintEventData,
+  };
 };

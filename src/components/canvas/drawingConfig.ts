@@ -1,7 +1,8 @@
 import Paper from 'paper';
 import * as paper from 'paper';
+import { SendPaintEventData } from '../../constants/interfaces';
 
-const enableDrawing = () => {
+const enableDrawing = ({ sendPaintEventData }: DrawingConfigOpts) => {
   let myPath = new Paper.Path();
 
   const colorBlack = new paper.Color(0, 0, 0);
@@ -13,17 +14,20 @@ const enableDrawing = () => {
 
   Paper.view.onMouseDrag = (event: paper.MouseEvent) => {
     myPath.add(event.point);
+    sendPaintEventData({ point: event.point });
   };
 
   Paper.view.onMouseUp = (event: paper.MouseEvent) => {
     myPath = new Paper.Path();
   };
 
-  // if (!Paper.view.draw) {
   (Paper.view as any).draw();
-  // }
 };
 
 const DrawingConfig = { enableDrawing };
+
+export interface DrawingConfigOpts {
+  sendPaintEventData: SendPaintEventData;
+}
 
 export default DrawingConfig;
