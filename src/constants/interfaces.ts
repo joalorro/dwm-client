@@ -49,6 +49,7 @@ export interface ConnectWebSocketConfig {
   isConnected: boolean | null;
   connectSocket: () => void;
   renderNotConnectedPage: () => void;
+  username: string;
   socket: Socket | null;
 }
 

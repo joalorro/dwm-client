@@ -2,7 +2,6 @@ import { ChangeEvent, useEffect, useState } from 'react';
 import {
   AppendChatMessage,
   ChatMessageData,
-  PaintData,
   SendChatMessage,
   SendPaintEventData,
   SetupAppendChatMessageListener,

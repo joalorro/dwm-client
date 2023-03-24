@@ -4,15 +4,19 @@ import { API_URL } from '../constants/api';
 
 export function useConnectRoom(
   setIsConnected: React.Dispatch<React.SetStateAction<boolean | null>>,
+  username: string,
 ): void {
   useEffect(() => {
     const connectToApi = async () => {
       try {
         const response = await axios({
           url: `${API_URL}/connect`,
-          method: 'get',
+          method: 'post',
           headers: {
             'Access-Control-Allow-Origin': '*',
+          },
+          data: {
+            username,
           },
         });
         console.log('DATA:', response);
@@ -22,6 +26,6 @@ export function useConnectRoom(
         setIsConnected(false);
       }
     };
-    connectToApi();
-  }, []);
+    if (username) connectToApi();
+  }, [username]);
 }

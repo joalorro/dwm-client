@@ -1,4 +1,4 @@
-import { ReactElement, useEffect } from 'react';
+import { ChangeEvent, ReactElement, useEffect } from 'react';
 import { useState } from 'react';
 import { Header } from '../header/header';
 import { useConnectRoom } from '../../hooks/useConnectRoom';
@@ -11,30 +11,44 @@ import { useRenderConnectedRoom } from '../../hooks/web-socket/useRenderConnecte
 import { setupWebSocket } from '../../hooks/web-socket/setupWebSocket';
 
 import styles from './room.module.css';
+import {
+  UsernameInput,
+  UsernameInputProps,
+} from './username-input/username-input';
 
 /**
  * Component that handles connecting to backend and setting up the chat and drawing websockets
  */
 export function Room() {
+  const [username, setUsername] = useState<string>('');
+  const handleUsernameSubmit = (submittedUsername: string) => () => {
+    setUsername(submittedUsername);
+  };
+  const usernameInputProps: UsernameInputProps = {
+    handleUsernameSubmit,
+  };
+
   const [isConnected, setIsConnected] = useState<boolean | null>(null);
-  const [roomContent, setRoomContent] = useState<ReactElement>(<>loading</>);
+  const [roomContent, setRoomContent] = useState<ReactElement>(
+    <UsernameInput {...usernameInputProps} />,
+  );
   const [socket, setSocket] = useState<Socket | null>(null);
   const [socketConfig, setSocketConfig] = useState<SetupSocketConfig | null>(
     null,
   );
-
   const renderNotConnectedPage = () => setRoomContent(<NotConnected />);
-  const connectSocket = () => setSocketConfig(setupWebSocket());
   const renderConnectedRoom = (connectedRoomProps: ConnectedRoomProps) =>
     setRoomContent(<ConnectedRoom {...connectedRoomProps} />);
+  const connectSocket = () => setSocketConfig(setupWebSocket());
 
   // connect to backend server
-  useConnectRoom(setIsConnected);
+  useConnectRoom(setIsConnected, username);
   // if client can connect, connect to chat room web socket
   useConnectWebSocket({
     isConnected,
     connectSocket,
     renderNotConnectedPage,
+    username,
     socket,
   });
   // once connected to chat room web socket, attach socket object to state

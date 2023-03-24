@@ -12,6 +12,7 @@ export const useConnectWebSocket = ({
   isConnected,
   connectSocket,
   renderNotConnectedPage,
+  username,
   socket,
 }: ConnectWebSocketConfig) => {
   useEffect(() => {
@@ -20,5 +21,5 @@ export const useConnectWebSocket = ({
     return () => {
       if (socket) socket.disconnect();
     };
-  }, [isConnected]);
+  }, [isConnected, username]);
 };
