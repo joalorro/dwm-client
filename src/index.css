@@ -25,3 +25,9 @@ code {
   justify-content: center;
   font-size: calc(10px + 2vmin);
 }
+
+.center-contents {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}

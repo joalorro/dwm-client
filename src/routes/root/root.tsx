@@ -9,7 +9,7 @@ export function Root() {
         <h3>Welcome to Draw With Me!</h3>
       </section>
       <section>
-        <Link to="/rooms/1">
+        <Link to="/rooms">
           <Button>Click here to join a room</Button>
         </Link>
       </section>
