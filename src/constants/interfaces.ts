@@ -58,3 +58,7 @@ export interface RenderConnectedRoomConfig {
   socketConfig: SetupSocketConfig | null;
   renderConnectedRoom: (connectedRoomProps: ConnectedRoomProps) => void;
 }
+
+export interface RoomLocationState {
+  roomNumber: number;
+}

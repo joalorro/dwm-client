@@ -1,4 +1,5 @@
 import { Link } from 'react-router-dom';
+import { RoomLocationState } from '../../constants/interfaces';
 import { RoomCard } from './room-card';
 import styles from './room-list.module.css';
 
@@ -20,8 +21,13 @@ export const RoomList = () => {
       roomNumber,
       key: index,
     };
+    const roomLocationState = { roomNumber } as RoomLocationState;
     return (
-      <Link to={`/rooms/${roomNumber}`} className={styles['room-list__link']}>
+      <Link
+        to={`/rooms/${roomNumber}`}
+        className={styles['room-list__link']}
+        state={roomLocationState}
+      >
         <RoomCard {...roomCardProps} />
       </Link>
     );

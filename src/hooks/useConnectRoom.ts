@@ -5,6 +5,7 @@ import { API_URL } from '../constants/api';
 export function useConnectRoom(
   setIsConnected: React.Dispatch<React.SetStateAction<boolean | null>>,
   username: string,
+  roomNumber: number,
 ): void {
   useEffect(() => {
     const connectToApi = async () => {
@@ -17,6 +18,7 @@ export function useConnectRoom(
           },
           data: {
             username,
+            roomNumber,
           },
         });
         console.log('DATA:', response);

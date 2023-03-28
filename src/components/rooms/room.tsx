@@ -2,7 +2,10 @@ import { ChangeEvent, ReactElement, useEffect } from 'react';
 import { useState } from 'react';
 import { Header } from '../header/header';
 import { useConnectRoom } from '../../hooks/useConnectRoom';
-import { SetupSocketConfig } from '../../constants/interfaces';
+import {
+  RoomLocationState,
+  SetupSocketConfig,
+} from '../../constants/interfaces';
 import { ConnectedRoom, ConnectedRoomProps } from './connected-room';
 import { Socket } from 'socket.io-client';
 import { useConnectWebSocket } from '../../hooks/web-socket/useConnectWebSocket';
@@ -15,11 +18,15 @@ import {
   UsernameInput,
   UsernameInputProps,
 } from './username-input/username-input';
+import { useLocation } from 'react-router-dom';
 
 /**
  * Component that handles connecting to backend and setting up the chat and drawing websockets
  */
 export function Room() {
+  const location = useLocation();
+  const { roomNumber } = location.state as RoomLocationState;
+
   const [username, setUsername] = useState<string>('');
   const handleUsernameSubmit = (submittedUsername: string) => () => {
     setUsername(submittedUsername);
@@ -42,7 +49,7 @@ export function Room() {
   const connectSocket = () => setSocketConfig(setupWebSocket());
 
   // connect to backend server
-  useConnectRoom(setIsConnected, username);
+  useConnectRoom(setIsConnected, username, roomNumber);
   // if client can connect, connect to chat room web socket
   useConnectWebSocket({
     isConnected,
